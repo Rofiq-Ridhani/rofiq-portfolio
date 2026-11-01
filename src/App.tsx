@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
-import Cursor from './components/Cursor';
 import Skills from './sections/Skills';
+import Navbar from './components/Navbar';
 import { PROJECTS } from './data/portfolio';
 
-import Navbar from './components/Navbar';
-
 export default function App() {
+  const [activeImage, setActiveImage] = useState<string | null>(null);
+
   useEffect(() => {
     const lenis = new Lenis();
     function raf(time: number) {
@@ -17,8 +17,7 @@ export default function App() {
   }, []);
 
   return (
-    <main className="min-h-screen selection:bg-acid selection:text-black">
-      <Cursor />
+    <main className="min-h-screen selection:bg-acid selection:text-black relative">
       <Navbar />
 
       {/* Hero */}
@@ -36,7 +35,7 @@ export default function App() {
             Full-Stack Builder
           </p>
           <div className="flex gap-4">
-            <a href="https://github.com/Rofiq-Ridhani" target="_blank" className="px-10 py-5 bg-acid border border-black uppercase font-black hover:translate-x-1 hover:-translate-y-1 transition-transform shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-0">GitHub</a>
+            <a href="https://github.com/Rofiq-Ridhani" target="_blank" rel="noreferrer" className="px-10 py-5 bg-acid border border-black uppercase font-black hover:translate-x-1 hover:-translate-y-1 transition-transform shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-0">GitHub</a>
             <a href="#contact" className="px-10 py-5 border border-black uppercase font-black hover:translate-x-1 hover:-translate-y-1 transition-transform shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-0">Contact</a>
           </div>
         </div>
@@ -65,29 +64,43 @@ export default function App() {
         </div>
         
         <div className="flex flex-col">
-          {PROJECTS.map((project, idx) => (
-            <div key={project.id} className={`border-b border-black py-20 px-8 flex flex-col md:flex-row gap-16 items-center ${idx % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
-              <div className="flex-1 w-full bg-gray/5 aspect-[16/10] border border-black flex items-center justify-center relative overflow-hidden group hover:bg-acid/10 transition-colors">
-                <div className="text-gray/40 uppercase tracking-widest font-black text-xs">IMAGE: {project.name} DASHBOARD</div>
-                <div className="absolute top-4 right-4 bg-black text-off-white px-3 py-1 text-xs font-bold uppercase">{project.category}</div>
-              </div>
-              <div className="w-full md:w-1/3 flex flex-col">
-                <div className="flex items-center gap-4 mb-4">
-                    <span className="text-4xl font-black text-gray/30">{project.id}</span>
-                    <h3 className="text-6xl font-black uppercase tracking-tighter">{project.name}</h3>
+          {PROJECTS.map((project, idx) => {
+            const firstImg = Object.values(project.images)[0];
+            return (
+              <div key={project.id} className={`border-b border-black py-20 px-8 flex flex-col md:flex-row gap-16 items-center ${idx % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
+                <div 
+                  onClick={() => setActiveImage(firstImg)}
+                  className="flex-1 w-full bg-gray/5 aspect-[16/10] border border-black flex items-center justify-center relative overflow-hidden group cursor-pointer hover:border-acid transition-colors"
+                >
+                  <img 
+                    src={firstImg} 
+                    alt={project.name} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-black uppercase text-sm tracking-wider">
+                    [ ZOOM ]
+                  </div>
+                  <div className="absolute top-4 right-4 bg-black text-off-white px-3 py-1 text-xs font-bold uppercase">{project.category}</div>
                 </div>
-                <p className="text-xl font-bold uppercase mb-8 leading-tight">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-12">
-                  {project.tech.map(t => (
-                    <span key={t} className="text-[10px] border border-black px-2 py-1 uppercase font-bold bg-white">{t}</span>
-                  ))}
+                
+                <div className="w-full md:w-1/3 flex flex-col">
+                  <div className="flex items-center gap-4 mb-4">
+                      <span className="text-4xl font-black text-gray/30">{project.id}</span>
+                      <h3 className="text-6xl font-black uppercase tracking-tighter">{project.name}</h3>
+                  </div>
+                  <p className="text-xl font-bold uppercase mb-8 leading-tight">{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-12">
+                    {project.tech.map(t => (
+                      <span key={t} className="text-[10px] border border-black px-2 py-1 uppercase font-bold bg-white">{t}</span>
+                    ))}
+                  </div>
+                  {project.github && (
+                    <a href={project.github} target="_blank" rel="noreferrer" className="w-fit px-8 py-4 border border-black uppercase font-black hover:bg-black hover:text-white transition-colors">View Repository</a>
+                  )}
                 </div>
-                {project.github && (
-                  <a href={project.github} target="_blank" className="w-fit px-8 py-4 border border-black uppercase font-black hover:bg-black hover:text-white transition-colors">View Repository</a>
-                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -101,13 +114,35 @@ export default function App() {
                     <a href="mailto:hello@rofiq.dev" className="text-4xl md:text-6xl font-black uppercase underline hover:text-acid transition-colors">Send Email</a>
                 </div>
                 <div className="flex flex-col justify-between items-start md:items-end uppercase font-bold gap-4">
-                    <a href="https://github.com/Rofiq-Ridhani" target="_blank" className="text-2xl hover:line-through">GitHub</a>
+                    <a href="https://github.com/Rofiq-Ridhani" target="_blank" rel="noreferrer" className="text-2xl hover:line-through">GitHub</a>
                     <a href="#" className="text-2xl hover:line-through">LinkedIn</a>
                     <div className="mt-12 text-xs text-gray-500">© 2026 Muhammad Rofiq Ridhani. ALL RIGHTS RESERVED.</div>
                 </div>
             </div>
         </div>
       </footer>
+
+      {/* Lightbox Modal */}
+      {activeImage && (
+        <div 
+          onClick={() => setActiveImage(null)}
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 md:p-12 cursor-zoom-out"
+        >
+          <div className="relative max-w-6xl w-full max-h-full flex flex-col items-center">
+            <button 
+              onClick={() => setActiveImage(null)}
+              className="absolute -top-12 right-0 bg-[#C5F467] text-black font-black px-4 py-2 uppercase border border-black"
+            >
+              Close [X]
+            </button>
+            <img 
+              src={activeImage} 
+              alt="Preview" 
+              className="max-w-full max-h-[85vh] object-contain border-4 border-white"
+            />
+          </div>
+        </div>
+      )}
     </main>
   );
 }

@@ -25,7 +25,7 @@ export const PROJECTS = [
     tech: ["Laravel 13", "React", "Reverb", "Socket.io", "Tailwind CSS"],
     github: "https://github.com/Rofiq-Ridhani/Amigo",
     images: {
-      dashboard: "/images/projects/amigo/dashboard.png",
+      dashboard: "/images/projects/amigo/dashboard.jpg",
       chat: "/images/projects/amigo/chat.png"
     }
   },
