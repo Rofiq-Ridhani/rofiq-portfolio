@@ -156,13 +156,12 @@ export default function App() {
             <section id="about" className="border-t border-[#B7F36B]/20 pt-24">
               <div className="grid lg:grid-cols-12 gap-12 items-center">
                 <div className="lg:col-span-5">
-                  <HUDPanel title="Intel Profile" className="aspect-[4/5] bg-[#14251F] flex items-center justify-center">
-                    <div className="text-center p-6">
-                      <div className="w-24 h-24 rounded-full border-2 border-[#B7F36B] mx-auto mb-4 flex items-center justify-center text-3xl font-black text-[#B7F36B]">
-                        MRR
-                      </div>
-                      <div className="text-xs text-[#527A63] font-mono uppercase tracking-widest">CLEARANCE: LEVEL 5</div>
-                    </div>
+                  <HUDPanel title="Intel Profile" className="aspect-[4/5] bg-[#14251F] flex items-center justify-center p-0 overflow-hidden">
+                    <img src="/images/profile/profile.jpg" alt="Profile" className="w-full h-full object-cover" onError={(e) => {
+                        (e.currentTarget as HTMLElement).style.display = 'none';
+                        const p = e.currentTarget.parentElement;
+                        if(p) p.innerHTML = '<div class="text-[#B7F36B]/20 uppercase font-black text-4xl rotate-12">User Profile</div>';
+                    }} />
                   </HUDPanel>
                 </div>
                 <div className="lg:col-span-7 space-y-8 text-lg md:text-xl font-bold uppercase leading-relaxed text-[#929A91]">
