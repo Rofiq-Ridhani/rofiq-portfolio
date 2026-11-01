@@ -17,7 +17,7 @@ export default function App() {
   }, []);
 
   return (
-    <main className="min-h-screen selection:bg-acid selection:text-black relative">
+    <main className="min-h-screen overflow-x-hidden selection:bg-acid selection:text-black relative">
       <Navbar />
 
       {/* Hero */}
