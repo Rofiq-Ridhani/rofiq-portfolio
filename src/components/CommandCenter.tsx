@@ -13,6 +13,17 @@ export default function CommandCenter({ isOpen, onClose, onSelectProject }: Comm
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   const navigationItems = [
     { title: 'Navigate to About', type: 'nav', href: '#about', icon: Cpu },
     { title: 'Navigate to Skills', type: 'nav', href: '#skills', icon: Database },

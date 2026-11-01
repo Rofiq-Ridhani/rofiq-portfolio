@@ -124,12 +124,12 @@ export default function App() {
 
           <main className="flex-1 p-6 md:p-16 space-y-32 max-w-7xl mx-auto w-full pt-24">
             {/* HERO */}
-            <section id="hero" className="min-h-[60vh] flex flex-col justify-center">
+            <section id="hero" className="min-h-[50vh] lg:min-h-[60vh] flex flex-col justify-center">
               <div className="inline-block border border-[#B7F36B]/30 px-3 py-1 bg-[#14251F] text-[#B7F36B] text-[10px] mb-4 w-fit">COMMANDER: RIDHANI // SYS_ID: 2.0.26</div>
-              <h1 className="text-[16vw] sm:text-[12vw] md:text-[8vw] font-black leading-[0.9] uppercase tracking-tighter mb-8">
+              <h1 className="text-[12vw] md:text-[8vw] lg:text-[6vw] font-black leading-[0.9] uppercase tracking-tighter mb-8">
                 Muhammad<br /><span className="text-[#B7F36B]">Rofiq</span><br />Ridhani
               </h1>
-              <p className="text-lg md:text-2xl text-[#929A91] font-bold uppercase mb-12">Backend Developer · Full-Stack Builder</p>
+              <p className="text-lg lg:text-xl text-[#929A91] font-bold uppercase mb-12">Backend Developer · Full-Stack Builder</p>
             </section>
 
             {/* ABOUT */}

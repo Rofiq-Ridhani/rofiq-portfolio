@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Github, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, ExternalLink, Github, CheckCircle2 } from 'lucide-react';
 import { ProjectData } from '../data/portfolio';
 
 interface ProjectModalProps {
@@ -9,18 +9,20 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+  useEffect(() => {
+    if (project) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [project]);
+
   if (!project) return null;
 
-  const imageEntries = Object.entries(project.images);
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
-
-  const nextImage = () => {
-    setActiveImageIndex(prev => (prev + 1) % imageEntries.length);
-  };
-
-  const prevImage = () => {
-    setActiveImageIndex(prev => (prev - 1 + imageEntries.length) % imageEntries.length);
-  };
+  const mainImage = Object.values(project.images)[0];
 
   return (
     <AnimatePresence>
@@ -32,7 +34,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          className="max-w-5xl w-full bg-[#14251F] border border-[#B7F36B] p-6 md:p-10 relative hud-glow max-h-[90vh] overflow-y-auto"
+          className="max-w-4xl w-full bg-[#14251F] border border-[#B7F36B] p-6 md:p-10 relative hud-glow max-h-[90vh] overflow-y-auto"
           onClick={e => e.stopPropagation()}
         >
           {/* Close Button */}
@@ -48,54 +50,20 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             <span className="text-xs font-bold text-[#B7F36B] bg-[#101715] px-3 py-1 uppercase border border-[#B7F36B]/20 inline-block mb-3">
               {project.category}
             </span>
-            <h2 className="text-4xl md:text-6xl font-black uppercase text-[#EAECE4] tracking-tighter">
+            <h2 className="text-3xl md:text-5xl font-black uppercase text-[#EAECE4] tracking-tighter">
               {project.name}
             </h2>
           </div>
 
-          {/* Image Showcase Gallery */}
-          <div className="mb-8 space-y-4">
-            <div className="relative aspect-video bg-[#101715] border border-[#B7F36B]/30 overflow-hidden group">
+          {/* Single Full Image Showcase (No crop) */}
+          <div className="mb-8">
+            <div className="relative aspect-video bg-[#101715] border border-[#B7F36B]/30 overflow-hidden flex items-center justify-center">
               <img 
-                src={imageEntries[activeImageIndex][1]} 
+                src={mainImage} 
                 alt={`${project.name} screenshot`} 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="max-w-full max-h-full object-contain"
               />
-              
-              {imageEntries.length > 1 && (
-                <>
-                  <button 
-                    onClick={prevImage}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-[#101715]/80 text-[#B7F36B] border border-[#B7F36B]/40 hover:bg-[#B7F36B] hover:text-[#101715] transition-colors"
-                  >
-                    <ChevronLeft size={20} />
-                  </button>
-                  <button 
-                    onClick={nextImage}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-[#101715]/80 text-[#B7F36B] border border-[#B7F36B]/40 hover:bg-[#B7F36B] hover:text-[#101715] transition-colors"
-                  >
-                    <ChevronRight size={20} />
-                  </button>
-                </>
-              )}
             </div>
-
-            {/* Thumbnail Navigation */}
-            {imageEntries.length > 1 && (
-              <div className="flex gap-4">
-                {imageEntries.map(([key, url], idx) => (
-                  <button 
-                    key={key} 
-                    onClick={() => setActiveImageIndex(idx)}
-                    className={`flex-1 h-20 border overflow-hidden transition-all ${
-                      idx === activeImageIndex ? 'border-[#B7F36B] opacity-100 scale-105' : 'border-[#B7F36B]/20 opacity-50 hover:opacity-100'
-                    }`}
-                  >
-                    <img src={url} alt={key} className="w-full h-full object-cover" />
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Case Study Grid */}
@@ -103,14 +71,14 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             <div className="md:col-span-7 space-y-6">
               <div>
                 <h4 className="text-xs font-bold text-[#B7F36B] uppercase mb-2">// Overview</h4>
-                <p className="text-base text-[#929A91] font-bold uppercase leading-relaxed">
+                <p className="text-sm md:text-base text-[#929A91] font-bold uppercase leading-relaxed">
                   {project.description}
                 </p>
               </div>
 
               <div>
                 <h4 className="text-xs font-bold text-[#B7F36B] uppercase mb-2">// Objectives</h4>
-                <p className="text-sm text-[#EAECE4] leading-relaxed">
+                <p className="text-xs md:text-sm text-[#EAECE4] leading-relaxed">
                   {project.objectives}
                 </p>
               </div>
