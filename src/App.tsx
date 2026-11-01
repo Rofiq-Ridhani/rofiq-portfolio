@@ -222,7 +222,7 @@ export default function App() {
               <p className="text-xl text-[#929A91] font-bold uppercase max-w-xl mb-12">
                 Always open to new opportunities and collaborations.
               </p>
-              <a href="mailto:mridhani51@gmail.com" className="text-4xl md:text-6xl font-black uppercase text-[#B7F36B] underline hover:text-white transition-colors text-glow">
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mridhani51@gmail.com" target="_blank" rel="noreferrer" className="text-4xl md:text-6xl font-black uppercase text-[#B7F36B] underline hover:text-white transition-colors text-glow">
                 Send Email
               </a>
             </section>
