@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
-import { AnimatePresence } from 'framer-motion';
-import { MapPin, Wifi } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { MapPin } from 'lucide-react';
+import Skills from './sections/Skills';
+import Timeline from './sections/Timeline';
 import { PROJECTS, SKILLS } from './data/portfolio';
 import Navbar from './components/Navbar';
 import CommandCenter from './components/CommandCenter';
 import ProjectModal from './components/ProjectModal';
+import Cursor from './components/Cursor';
+import { RealClock, ScrollProgressBar } from './components/LivingHUD';
 
 // --- COMPONENTS ---
 
@@ -29,17 +33,17 @@ const BootSequence = ({ onComplete }: { onComplete: () => void }) => {
       setPercent(prev => {
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(onComplete, 500);
+          setTimeout(onComplete, 400);
           return 100;
         }
         return prev + 1;
       });
-    }, 25);
+    }, 20);
 
     logMessages.forEach((msg, i) => {
       setTimeout(() => {
         setLogs(prev => [...prev, msg]);
-      }, i * 300);
+      }, i * 250);
     });
 
     return () => clearInterval(interval);
@@ -49,8 +53,8 @@ const BootSequence = ({ onComplete }: { onComplete: () => void }) => {
     <div className="fixed inset-0 z-[100] bg-[#101715] flex flex-col items-center justify-center font-mono p-4">
       <div className="w-full max-w-lg border border-[#B7F36B]/30 p-8 hud-glow relative bg-[#14251F]">
         <div className="flex justify-between text-[#B7F36B] mb-4 text-xs uppercase tracking-widest">
-          <span>Boot Sequence</span>
-          <span>System Status: 72%</span>
+          <span>System Awakening</span>
+          <span>Status: INITIALIZING</span>
         </div>
         <div className="h-4 w-full bg-[#101715] border border-[#B7F36B]/20 mb-8 overflow-hidden">
           <div className="h-full bg-[#B7F36B]" style={{ width: `${percent}%` }} />
@@ -63,8 +67,9 @@ const BootSequence = ({ onComplete }: { onComplete: () => void }) => {
             </div>
           ))}
         </div>
-        <div className="mt-8 text-center text-[#B7F36B] font-black text-2xl">
-          {percent}%
+        <div className="mt-8 flex justify-between items-center">
+          <span className="text-[#B7F36B] text-xs uppercase">Loading Cinematic HUD...</span>
+          <span className="text-[#B7F36B] font-black text-2xl">{percent}%</span>
         </div>
       </div>
     </div>
@@ -108,6 +113,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#101715] text-[#EAECE4] selection:bg-[#B7F36B] selection:text-[#101715] relative overflow-x-hidden font-mono">
+      <Cursor />
+      <ScrollProgressBar />
+
       <AnimatePresence>
         {booting && <BootSequence onComplete={() => setBooting(false)} />}
       </AnimatePresence>
@@ -122,14 +130,36 @@ export default function App() {
           />
           <ProjectModal project={activeProject} onClose={() => setActiveProject(null)} />
 
+          {/* Living HUD Floating Header info */}
+          <div className="hidden lg:flex fixed bottom-6 left-6 z-30 items-center gap-6 bg-[#14251F]/80 backdrop-blur-md border border-[#B7F36B]/20 px-4 py-2">
+            <RealClock />
+            <div className="h-3 w-[1px] bg-[#B7F36B]/20" />
+            <div className="flex items-center gap-1 text-[10px] text-[#527A63]">
+              <MapPin size={10} /> EARTH / ID
+            </div>
+          </div>
+
           <main className="flex-1 p-6 md:p-16 space-y-32 max-w-7xl mx-auto w-full pt-24">
             {/* HERO */}
-            <section id="hero" className="min-h-[50vh] lg:min-h-[60vh] flex flex-col justify-center">
+            <section id="hero" className="min-h-[50vh] lg:min-h-[60vh] flex flex-col justify-center pt-8 md:pt-12">
               <div className="inline-block border border-[#B7F36B]/30 px-3 py-1 bg-[#14251F] text-[#B7F36B] text-[10px] mb-4 w-fit">COMMANDER: RIDHANI // SYS_ID: 2.0.26</div>
-              <h1 className="text-[12vw] md:text-[8vw] lg:text-[6vw] font-black leading-[0.9] uppercase tracking-tighter mb-8">
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-[12vw] md:text-[8vw] lg:text-[6vw] font-black leading-[0.9] uppercase tracking-tighter mb-8"
+              >
                 Muhammad<br /><span className="text-[#B7F36B]">Rofiq</span><br />Ridhani
-              </h1>
+              </motion.h1>
               <p className="text-lg lg:text-xl text-[#929A91] font-bold uppercase mb-12">Backend Developer · Full-Stack Builder</p>
+              <div className="flex gap-4">
+                <button 
+                  onClick={() => setIsCommandCenterOpen(true)}
+                  className="px-8 py-4 bg-[#B7F36B] text-[#101715] font-black uppercase text-xs tracking-widest hover:bg-white transition-colors shadow-[4px_4px_0px_0px_rgba(20,37,31,1)]"
+                >
+                  Explore Portfolio [Ctrl+K]
+                </button>
+              </div>
             </section>
 
             {/* ABOUT */}
@@ -148,15 +178,29 @@ export default function App() {
               </div>
             </section>
 
-            {/* PROJECTS */}
+            <Timeline />
+            <Skills />
+
+            {/* PROJECTS — HOLOGRAPHIC CARDS */}
             <section id="projects" className="border-t border-[#B7F36B]/20 pt-24">
               <h2 className="text-5xl font-black uppercase tracking-tighter mb-16">Archives</h2>
               <div className="grid md:grid-cols-2 gap-8">
                 {PROJECTS.map((project) => (
-                  <div key={project.id} onClick={() => setActiveProject(project)} className="group border border-[#B7F36B]/20 p-6 cursor-pointer hover:border-[#B7F36B]">
-                    <img src={Object.values(project.images)[0]} className="w-full aspect-video object-cover mb-4 grayscale group-hover:grayscale-0" />
-                    <h3 className="text-2xl font-black uppercase">{project.name}</h3>
-                  </div>
+                  <motion.div 
+                    key={project.id} 
+                    whileHover={{ scale: 1.02, y: -4 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setActiveProject(project)} 
+                    className="group border border-[#B7F36B]/30 bg-[#14251F]/40 p-6 cursor-pointer hover:border-[#B7F36B] hover:shadow-[0_0_20px_rgba(183,243,107,0.15)] transition-all relative overflow-hidden"
+                  >
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-[#B7F36B]/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                    <img src={Object.values(project.images)[0]} className="w-full aspect-video object-cover mb-4 grayscale group-hover:grayscale-0 transition-all duration-500" />
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-xs font-bold text-[#B7F36B] uppercase">{project.category}</span>
+                      <span className="text-[10px] text-[#527A63] uppercase group-hover:text-[#B7F36B] transition-colors">// VIEW PROJECT</span>
+                    </div>
+                    <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight">{project.name}</h3>
+                  </motion.div>
                 ))}
               </div>
             </section>
