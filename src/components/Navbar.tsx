@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, X, Search } from 'lucide-react';
+import { Search, Menu, X } from 'lucide-react';
 
 interface NavbarProps {
   onOpenSearch: () => void;
@@ -12,15 +12,11 @@ export default function Navbar({ onOpenSearch }: NavbarProps) {
     <nav className="fixed top-0 w-full p-4 md:p-6 lg:p-8 flex justify-between items-center z-40 bg-[#14251F]/90 backdrop-blur-md border-b border-[#B7F36B]/20">
       <div className="font-black text-xl md:text-2xl uppercase tracking-tighter text-[#B7F36B]">Rofiq Portfolio</div>
       
-      {/* Desktop Links */}
-      <div className="hidden md:flex items-center gap-8 uppercase text-xs font-black">
-        <a href="#about" className="text-[#EAECE4] hover:text-[#B7F36B] transition-colors">About</a>
-        <a href="#skills" className="text-[#EAECE4] hover:text-[#B7F36B] transition-colors">Skills</a>
-        <a href="#projects" className="text-[#EAECE4] hover:text-[#B7F36B] transition-colors">Projects</a>
-        <a href="#contact" className="text-[#EAECE4] hover:text-[#B7F36B] transition-colors">Contact</a>
+      {/* Desktop Search */}
+      <div className="hidden md:flex items-center gap-6">
         <button 
           onClick={onOpenSearch}
-          className="flex items-center gap-2 bg-[#B7F36B]/10 border border-[#B7F36B]/30 px-3 py-1.5 text-[#B7F36B] hover:bg-[#B7F36B] hover:text-[#101715] transition-all"
+          className="flex items-center gap-2 bg-[#B7F36B]/10 border border-[#B7F36B]/30 px-3 py-1.5 text-[#B7F36B] hover:bg-[#B7F36B] hover:text-[#101715] transition-all uppercase text-xs font-black"
         >
           <Search size={14} /> <span className="text-[10px]">CTRL + K</span>
         </button>
