@@ -34,15 +34,15 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          className="max-w-4xl w-full bg-[#14251F] border border-[#B7F36B] p-6 md:p-10 relative hud-glow max-h-[90vh] overflow-y-auto"
+          className="max-w-6xl w-full bg-[#14251F] border border-[#B7F36B] p-6 md:p-10 relative hud-glow max-h-[90vh] overflow-y-auto"
           onClick={e => e.stopPropagation()}
         >
           {/* Close Button */}
           <button 
             onClick={onClose}
-            className="absolute top-4 right-4 bg-[#B7F36B] text-[#101715] font-black p-2 uppercase hover:bg-white transition-colors flex items-center gap-1 text-xs"
+            className="absolute top-6 right-6 bg-[#B7F36B] text-[#101715] font-black p-3 uppercase hover:bg-white transition-colors flex items-center gap-2 text-sm z-10"
           >
-            <X size={16} /> Close
+            <X size={20} /> Close
           </button>
 
           {/* Header Metadata */}

@@ -18,7 +18,7 @@ const CHAPTERS: Chapter[] = [
     number: "CHAPTER 01",
     title: "THE BEGINNING",
     status: "MISSION COMPLETED",
-    description: "Started the programming journey by studying Software Engineering at SMK Telkom Banjarbaru.",
+    description: "Mulai mengenal dunia programming melalui pendidikan Rekayasa Perangkat Lunak di SMK Telkom Banjarbaru.",
     icon: Compass
   },
   {
@@ -26,7 +26,7 @@ const CHAPTERS: Chapter[] = [
     number: "CHAPTER 02",
     title: "FIRST LINES OF CODE",
     status: "MISSION COMPLETED",
-    description: "Explored foundational web development technologies including HTML, CSS, JavaScript, and PHP.",
+    description: "Mulai mempelajari dasar pengembangan web, termasuk HTML, CSS, JavaScript, dan PHP.",
     icon: Terminal
   },
   {
@@ -34,7 +34,7 @@ const CHAPTERS: Chapter[] = [
     number: "CHAPTER 03",
     title: "BACKEND EXPLORATION",
     status: "MISSION COMPLETED",
-    description: "Deep-dived into backend development, Laravel framework, database architecture, and API design.",
+    description: "Mulai mendalami backend development, Laravel, database, API, dan bagaimana sebuah aplikasi bekerja di balik layar.",
     icon: Cpu
   },
   {
@@ -42,7 +42,7 @@ const CHAPTERS: Chapter[] = [
     number: "CHAPTER 04",
     title: "BUILDING PROJECTS",
     status: "MISSION COMPLETED",
-    description: "Applied technical knowledge through various personal development projects.",
+    description: "Mulai menerapkan pengetahuan melalui berbagai proyek mandiri.",
     highlights: ["Vieron — E-commerce Platform", "STARS — School Payment System", "Codio — Mobile Portfolio Application"],
     icon: Zap
   },
@@ -51,7 +51,7 @@ const CHAPTERS: Chapter[] = [
     number: "CHAPTER 05",
     title: "REAL-WORLD EXPERIENCE",
     status: "MISSION COMPLETED",
-    description: "Gained professional team experience during an internship at Diskominfo, working on production-scale applications.",
+    description: "Mendapat pengalaman kerja tim melalui kegiatan internship di Diskominfo dan terlibat dalam pengembangan aplikasi nyata.",
     highlights: ["Amigo — Real-time Messaging Application", "WADAHKISAH — Complaint Management System"],
     icon: ShieldCheck
   },
@@ -60,7 +60,7 @@ const CHAPTERS: Chapter[] = [
     number: "CHAPTER 06",
     title: "BEYOND DEVELOPMENT",
     status: "MISSION COMPLETED",
-    description: "Expanded technical horizon beyond web development, exploring Linux, Networking, WebSockets, Python, and AI/ML.",
+    description: "Mulai mengeksplorasi teknologi di luar web development, seperti Linux, Networking, WebSocket, Python, dan AI/ML.",
     icon: Activity
   },
   {
@@ -68,7 +68,7 @@ const CHAPTERS: Chapter[] = [
     number: "CHAPTER 07",
     title: "STILL BUILDING...",
     status: "CURRENT JOURNEY",
-    description: "Continuously developing personal projects, exploring emerging technologies, and sharpening expertise as a developer.",
+    description: "Terus mengembangkan proyek pribadi, mengeksplorasi teknologi baru, dan meningkatkan kemampuan sebagai developer.",
     icon: Compass
   }
 ];
