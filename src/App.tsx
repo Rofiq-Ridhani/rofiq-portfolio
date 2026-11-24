@@ -159,7 +159,7 @@ export default function App() {
                 <div className="lg:col-span-5">
                   <HUDPanel title="Intel Profile" className="aspect-[4/5] bg-[#14251F] flex items-center justify-center overflow-hidden">
                     <img 
-                      src="/images/profile/profile.jpg" 
+                      src="/images/profile/profile.png" 
                       alt="Muhammad Rofiq Ridhani" 
                       className="w-full h-full object-cover"
                     />
